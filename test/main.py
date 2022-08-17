@@ -6,7 +6,7 @@ def test_diagram():
     diagram = Diagram()
     diagram.add_out_format("png")
     computer = Computer(diagram)
-    diagram.add_node(computer.id, "Home PC")
+    diagram.add_node(computer, "Home PC")
     diagram.render()
 
 

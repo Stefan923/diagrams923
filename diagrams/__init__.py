@@ -35,8 +35,8 @@ class Diagram:
         for out_format in self.out_formats:
             self.graph.render(format=out_format, view=self.show, quiet=True)
 
-    def add_node(self, node_id: str, label: str, **attributes) -> None:
-        self.graph.node(node_id, label=label, **attributes)
+    def add_node(self, node: "Node", label: str) -> None:
+        self.graph.node(node.id, label=label, **node.attributes)
 
     def add_edge(self, tail_node: "Node", head_node: "Node", edge: "Edge"):
         self.graph.edge(tail_node.id, head_node.id, **edge.attributes)
@@ -54,7 +54,6 @@ class Node:
         self._diagram = diagram
 
         padding = 0.4 * (label.count('\n'))
-        self._attributes = {}
         self._attributes = {
             "shape": "none",
             "height": str(self._height + padding),
@@ -70,6 +69,10 @@ class Node:
     @property
     def id(self):
         return self._id
+
+    @property
+    def attributes(self):
+        return self._attributes
 
     def connect(self, node: "Node", edge: "Edge"):
         if not isinstance(node, Node):
