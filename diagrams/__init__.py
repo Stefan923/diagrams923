@@ -109,6 +109,7 @@ class Edge:
         "fontcolor": "#2D3436",
         "fontname": "Sans-Serif",
         "fontsize": "13",
+        "color": "#7B8894"
     }
 
     def __init__(
@@ -121,7 +122,7 @@ class Edge:
         self._reverse = False
         self._attributes = {}
 
-        for key, value in self._default_edge_attrs:
+        for key, value in self._default_edge_attrs.items():
             self._attributes[key] = value
 
         self._attributes.update(attributes)
