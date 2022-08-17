@@ -128,7 +128,7 @@ class Edge:
         for key, value in self._default_edge_attrs.items():
             self._attributes[key] = value
 
-        self._attributes.update(attributes)
+        self._attributes.update(**attributes)
 
     @property
     def attributes(self) -> Dict:
