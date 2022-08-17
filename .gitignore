@@ -3,3 +3,6 @@ venv
 
 # Idea folder
 .idea
+
+# Python cache files
+*.pyc
