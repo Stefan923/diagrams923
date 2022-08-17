@@ -17,8 +17,7 @@ def test_diagram():
     diagram.add_node(tablet, "Child's Tablet")
 
     edge1 = Edge(computer1)
-    edge1.connect(computer2)
-    edge1.connect(mobile)
+    edge1.connect([computer2, mobile])
     edge2 = Edge(mobile)
     edge2.connect(tablet)
 
