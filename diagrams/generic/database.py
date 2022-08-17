@@ -7,3 +7,7 @@ class _Database(_Generic):
 
 class Database(_Database):
     _icon = "database.png"
+
+
+class DataCenter(_Database):
+    _icon = "datacenter.png"
