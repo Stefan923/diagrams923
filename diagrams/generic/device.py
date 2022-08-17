@@ -7,3 +7,7 @@ class _Device(_Generic):
 
 class Computer(_Device):
     _icon = "computer.png"
+
+
+class Mobile(_Device):
+    _icon = "mobile.png"
