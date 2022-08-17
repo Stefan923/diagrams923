@@ -1,0 +1,5 @@
+# Environment folder
+venv
+
+# Idea folder
+.idea
