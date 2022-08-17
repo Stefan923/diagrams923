@@ -19,13 +19,28 @@ class Diagram:
         "fontcolor": "#2D3436",
     }
 
+    _default_node_attrs = {
+        "shape": "box",
+        "style": "rounded",
+        "fixedsize": "true",
+        "width": "1.4",
+        "height": "1.4",
+        "labelloc": "b",
+        "imagescale": "true",
+        "fontname": "Sans-Serif",
+        "fontsize": "13",
+        "fontcolor": "#2D3436",
+    }
+
     def __init__(self):
         self.out_formats = []
         self.show = True
-        self.graph = Digraph("default", filename="../default_filename")
+        self.graph = Digraph("default", filename="default_filename")
 
         for key, value in self._default_graph_attrs.items():
             self.graph.graph_attr[key] = value
+        for key, value in self._default_node_attrs.items():
+            self.graph.node_attr[key] = value
 
     def add_out_format(self, out_format: str) -> None:
         if out_format in self.__out_formats:
@@ -35,11 +50,14 @@ class Diagram:
         for out_format in self.out_formats:
             self.graph.render(format=out_format, view=self.show, quiet=True)
 
-    def add_node(self, node_id: str, label: str, **attributes) -> None:
-        self.graph.node(node_id, label=label, **attributes)
+    def add_node(self, node: "Node", label: str) -> None:
+        self.graph.node(node.id, label=label, **node.attributes)
 
     def add_edge(self, tail_node: "Node", head_node: "Node", edge: "Edge"):
         self.graph.edge(tail_node.id, head_node.id, **edge.attributes)
+
+    def set_file_name(self, filename: str):
+        self.graph.filename = filename
 
 
 class Node:
@@ -54,7 +72,6 @@ class Node:
         self._diagram = diagram
 
         padding = 0.4 * (label.count('\n'))
-        self._attributes = {}
         self._attributes = {
             "shape": "none",
             "height": str(self._height + padding),
@@ -70,6 +87,10 @@ class Node:
     @property
     def id(self):
         return self._id
+
+    @property
+    def attributes(self):
+        return self._attributes
 
     def connect(self, node: "Node", edge: "Edge"):
         if not isinstance(node, Node):
@@ -91,6 +112,7 @@ class Edge:
         "fontcolor": "#2D3436",
         "fontname": "Sans-Serif",
         "fontsize": "13",
+        "color": "#7B8894"
     }
 
     def __init__(
@@ -103,10 +125,10 @@ class Edge:
         self._reverse = False
         self._attributes = {}
 
-        for key, value in self._default_edge_attrs:
+        for key, value in self._default_edge_attrs.items():
             self._attributes[key] = value
 
-        self._attributes.update(attributes)
+        self._attributes.update(**attributes)
 
     @property
     def attributes(self) -> Dict:
