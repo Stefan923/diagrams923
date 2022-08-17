@@ -1,4 +1,0 @@
-digraph default {
-	graph [fontcolor="#2D3436" fontname="Sans-Serif" fontsize=15 nodesep=0.60 pad=2.0 ranksep=0.75 splines=ortho]
-	"6ae061fcc89f4d1a92cab2776302b42d" [label="Home PC" height=1.9 image="D:\Workspace\diagrams923\resources/generic/device\computer.png" shape=none]
-}
