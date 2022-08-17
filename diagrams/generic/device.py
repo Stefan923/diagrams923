@@ -11,3 +11,7 @@ class Computer(_Device):
 
 class Mobile(_Device):
     _icon = "mobile.png"
+
+
+class Tablet(_Device):
+    _icon = "tablet.png"
