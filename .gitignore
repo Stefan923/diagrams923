@@ -6,3 +6,6 @@ venv
 
 # Python cache files
 *.pyc
+
+# Project test files
+test_output
