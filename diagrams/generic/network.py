@@ -7,3 +7,7 @@ class _Network(_Generic):
 
 class Router(_Network):
     _icon = "router.png"
+
+
+class Switch(_Network):
+    _icon = "switch.png"
