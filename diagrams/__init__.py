@@ -19,6 +19,19 @@ class Diagram:
         "fontcolor": "#2D3436",
     }
 
+    _default_node_attrs = {
+        "shape": "box",
+        "style": "rounded",
+        "fixedsize": "true",
+        "width": "1.4",
+        "height": "1.4",
+        "labelloc": "b",
+        "imagescale": "true",
+        "fontname": "Sans-Serif",
+        "fontsize": "13",
+        "fontcolor": "#2D3436",
+    }
+
     def __init__(self):
         self.out_formats = []
         self.show = True
@@ -26,6 +39,8 @@ class Diagram:
 
         for key, value in self._default_graph_attrs.items():
             self.graph.graph_attr[key] = value
+        for key, value in self._default_node_attrs.items():
+            self.graph.node_attr[key] = value
 
     def add_out_format(self, out_format: str) -> None:
         if out_format in self.__out_formats:
