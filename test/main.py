@@ -5,6 +5,7 @@ from diagrams.generic.device import *
 def test_diagram():
     diagram = Diagram()
     diagram.add_out_format("png")
+    diagram.set_file_name("../test_output/default_filename")
 
     computer1 = Computer(diagram)
     diagram.add_node(computer1, "Home PC")

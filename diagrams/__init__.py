@@ -35,7 +35,7 @@ class Diagram:
     def __init__(self):
         self.out_formats = []
         self.show = True
-        self.graph = Digraph("default", filename="../default_filename")
+        self.graph = Digraph("default", filename="default_filename")
 
         for key, value in self._default_graph_attrs.items():
             self.graph.graph_attr[key] = value
@@ -55,6 +55,9 @@ class Diagram:
 
     def add_edge(self, tail_node: "Node", head_node: "Node", edge: "Edge"):
         self.graph.edge(tail_node.id, head_node.id, **edge.attributes)
+
+    def set_file_name(self, filename: str):
+        self.graph.filename = filename
 
 
 class Node:
