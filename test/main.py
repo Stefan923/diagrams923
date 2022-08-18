@@ -10,11 +10,15 @@ def test_diagram():
     computer1 = Computer(diagram)
     diagram.add_node(computer1, "Home PC")
     computer2 = Computer(diagram)
-    diagram.add_node(computer2, "Office PC")
     mobile = Mobile(diagram)
-    diagram.add_node(mobile, "Own Phone")
     tablet = Tablet(diagram)
     diagram.add_node(tablet, "Child's Tablet")
+
+    safe_devices_cluster = Cluster(diagram, label="Safe Devices")
+    safe_devices_cluster.add_node(computer2, "Office PC")
+    safe_devices_cluster.add_node(mobile, "Own Phone")
+
+    diagram.set_subgraph(safe_devices_cluster.graph)
 
     edge1 = Edge(computer1)
     edge1.connect([computer2, mobile])
