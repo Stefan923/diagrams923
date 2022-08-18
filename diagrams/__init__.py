@@ -50,6 +50,9 @@ class Diagram:
         for out_format in self.out_formats:
             self.graph.render(format=out_format, view=self.show, quiet=True)
 
+    def set_subgraph(self, graph: Digraph) -> None:
+        self.graph.subgraph(graph)
+
     def add_node(self, node: "Node", label: str) -> None:
         self.graph.node(node.id, label=label, **node.attributes)
 
@@ -58,6 +61,60 @@ class Diagram:
 
     def set_file_name(self, filename: str):
         self.graph.filename = filename
+
+
+class Cluster:
+    __directions = ("TB", "BT", "LR", "RL")
+    __bgcolors = ("#E5F5FD", "#EBF3E7", "#ECE8F6", "#FDF7E3")
+
+    _default_graph_attrs = {
+        "shape": "box",
+        "style": "rounded",
+        "labeljust": "l",
+        "pencolor": "#AEB6BE",
+        "fontname": "Sans-Serif",
+        "fontsize": "12",
+    }
+
+    def __init__(
+        self,
+        diagram: Diagram,
+        parent: "Cluster" = None,
+        label: str = "cluster",
+        direction: str = "LR",
+        graph_attr: dict = {}
+    ):
+        self.label = label
+        self.name = "cluster_" + self.label
+
+        self._graph = Digraph(self.name)
+
+        for k, v in self._default_graph_attrs.items():
+            self._graph.graph_attr[k] = v
+        self._graph.graph_attr["label"] = self.label
+
+        self._graph.graph_attr["rankdir"] = direction
+
+        self._diagram = diagram
+        if self._diagram is None:
+            raise EnvironmentError("Global diagrams context not set up")
+        self._parent = parent
+
+        self.depth = self._parent.depth + 1 if self._parent else 0
+        color_id = self.depth % len(self.__bgcolors)
+        self._graph.graph_attr["bgcolor"] = self.__bgcolors[color_id]
+
+        self._graph.graph_attr.update(graph_attr)
+
+    def add_node(self, node: "Node", label: str) -> None:
+        self._graph.node(node.id, label=label, **node.attributes)
+
+    def set_subgraph(self, graph: Digraph) -> None:
+        self._graph.subgraph(graph)
+
+    @property
+    def graph(self):
+        return self._graph
 
 
 class Node:
